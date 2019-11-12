@@ -43,3 +43,22 @@ $ npm start
 ```js
 $ npm run build
 ```
+# set proxy
+1. install package
+```js
+npm install http-proxy-middleware http-server -D
+```
+2. create file `setupProxy.js` in the src directory
+```js
+// setupProxy.js
+const proxy = require('http-proxy-middleware');
+module.exports = function(app) {
+  // 当请求 http://localhost:3000/api/employee/getEmployee.action 时 代理到 http://localhost:4000/employeee/getEmployee.json
+  app.use('/api/**/*.action', proxy({
+    target: 'http://localhost:4000',
+    pathRewrite(path) {
+      return path.replace('/api', '/').replace('.action', '.json')
+    }
+  }))
+}
+```

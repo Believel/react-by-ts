@@ -7,10 +7,9 @@
 }
 .content {
   background: #fff;
-  padding-top: 24px;
+  padding: 24px;
   padding-bottom: 70px;
   zoom: 1;
-  box-sizing: border-box;
 }
 .footer {
   text-align: center;

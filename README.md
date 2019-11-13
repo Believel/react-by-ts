@@ -103,3 +103,27 @@ render() {
   ```
   * 还有其他方式。。。暂时不研究
 # 代码部署线上
+
+## nginx部署到根目录下
+
+1. 进入`/etc/nginx/conf.d`目录下，修改文件`default.conf`
+
+   ```js
+   server {
+     listen  80;
+     server_name  test.com; // 你的域名或者IP地址
+
+     location / { // 根目录
+       root  /usr/local; // 前端文件路径
+       index  index.html; // hash模式只配置访问html就可以了
+       try_files $uri $uri/ /index.html; // history模式下
+     }
+   }
+   ```
+
+2. 修改完成之后，重启nginx:`nginx -s reload`
+3. 访问：`域名|IP地址`即可
+
+## nginx部署到子目录下
+
+   ​

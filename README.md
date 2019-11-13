@@ -43,7 +43,7 @@ $ npm start
 ```js
 $ npm run build
 ```
-# set proxy
+# set proxy in development environment
 1. install package
 ```js
 npm install http-proxy-middleware http-server -D

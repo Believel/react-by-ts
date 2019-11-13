@@ -1,1 +1,1 @@
-export const GET_EMPLOYEE_URL = '/api/employee/getEmployee.action';
+export const GET_EMPLOYEE_URL = '/api/getEmployee';

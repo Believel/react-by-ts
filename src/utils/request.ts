@@ -1,6 +1,8 @@
 import originAxios from 'axios'
 import { message } from 'antd';
+import config from '../config';
 const axios = originAxios.create({
+  baseURL: config.baseURL,
   timeout: 2000
 });
 axios.interceptors.response.use(

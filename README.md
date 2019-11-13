@@ -62,3 +62,43 @@ module.exports = function(app) {
   }))
 }
 ```
+3. 添加一个命令在`package.json`
+```js
+// && 表示串行执行
+// &  表示并行执行
+"server": "cd mock && hs -p 4000 -a localhost"
+```
+# Environment Variables
+1. Adding Environment Variables In `.env` in the root of your project
+```js
+REACT_APP_WEBSITE_TITLE = Typescript in Action By Typescript
+# also works
+# REACT_APP_VERSION = ${npm_package_version}
+REACT_APP_VERSION = $npm_package_version
+```
+2. Referencing Environment Variables in the HTML
+```js
+<title>%REACT_APP_WEBSITE_TITLE%</title>
+```
+3. Referencing Environment Variables in the Javascript
+```js
+render() {
+  return (
+    <div>
+      <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
+      <form>
+        <input type="hidden" defaultValue={process.env.REACT_APP_WEBSITE_TITLE} />
+      </form>
+    </div>
+  );
+}
+```
+# deploy my project
+1. `npm run build`
+2. 预览
+  * 方式1
+  ```js
+  yarn global add serve
+  serve -s build // 在当前目录下启动即可开启一个默认的5000端口的本地服务，如果说此命令不存在，则需要配置环境变量
+  ```
+  * 还有其他方式。。。暂时不研究

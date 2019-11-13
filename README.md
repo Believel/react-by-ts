@@ -125,5 +125,21 @@ render() {
 3. 访问：`域名|IP地址`即可
 
 ## nginx部署到子目录下
+1. 进入`/etc/nginx/conf.d` 目录下，修改文件`default.conf`
+```js
+server {
+  listen  80;
+  server_name  test.com; // 你的域名或者ip地址
+
+  location /demo { // 子级目录
+    alias  /front/demo; // 前端也要配置二级目录，react项目是在环境配置文件中配置属性PUBLIC_URL=/demo,把前端打包的build目录下的内容，放在服务器对应的二级目录下demo下
+    index  index.html;
+    try_files $uri $uri/ /demo/index.html; 
+  }
+}
+
+```
+2. 修改完成之后，重启nginx服务：`nginx -s reload`
+3. 访问：`域名|ip地址`/demo 即可
 
    ​

@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter, Route} from 'react-router-dom';
+import { HashRouter, Route} from 'react-router-dom';
 import App from '../components/App';
 const Root = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Route path="/*" component={App}/>
-  </BrowserRouter>
+  </HashRouter>
 )
 export default Root

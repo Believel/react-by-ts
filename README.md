@@ -141,5 +141,18 @@ server {
 ```
 2. 修改完成之后，重启nginx服务：`nginx -s reload`
 3. 访问：`域名|ip地址`/demo 即可
+## nginx利用反向代理调试后台接口
+```js
+server {
+  listen: 80;
+  server_name: test.com;
+
+  location ^~ /api/ {
+    proxy_pass 后台接口地址(例如：http://localhost:2001);
+  }
+}
+// 解释： 当请求test.come/api/a 接口时会转发到 http://localhost:2001/api/a;
+// 如果代理地址是：http://localhost:2001/, 以/结尾，接口会转发到 http://localhost:2001/a
+```
 
    ​

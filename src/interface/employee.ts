@@ -2,7 +2,7 @@ export interface EmployeeRequest {
   name: string;
   departmentId: number | undefined;
 }
-interface EmployeeInfo {
+export interface EmployeeInfo {
   id: number;
   key: number;
   name: string;
@@ -11,3 +11,10 @@ interface EmployeeInfo {
   level: string;
 }
 export type EmployeeResponse = EmployeeInfo[] | undefined;
+
+export interface CreateRequest {
+  name: string;
+  departmentId: number;
+  hiredate: string;
+  levelId: number;
+}

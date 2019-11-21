@@ -28,7 +28,7 @@ class QueryForm extends Component<Props, EmployeeRequest>{
   }
   queryEmployee(param: EmployeeRequest) {
     get(GET_EMPLOYEE_URL, param).then(res => {
-      this.props.onDataChange(res.data)
+      this.props.onDataChange(res.data.list);
     })
   }
   componentDidMount() {

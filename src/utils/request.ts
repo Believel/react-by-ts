@@ -1,5 +1,6 @@
-import originAxios from 'axios'
+import originAxios  from 'axios'
 import { message } from 'antd';
+
 const axios = originAxios.create({
   timeout: 2000
 });

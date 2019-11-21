@@ -20,7 +20,7 @@ class Employee extends Component<{}, State>{
     return (
       <>
         <QueryForm onDataChange={this.setEmployee}/>
-        <Table columns={employeeColumns} bordered dataSource={this.state.employee} className="table"/>
+        <Table columns={employeeColumns} rowKey="_id" bordered dataSource={this.state.employee} className="table"/>
       </>
     )
   }

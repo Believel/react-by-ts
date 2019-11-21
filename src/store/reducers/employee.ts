@@ -25,6 +25,6 @@ export default function(state = initialState, action: Action) {
       }
     case UPDATE_EMPLOYEE:
       let updatedList = [...(state.employeeList as EmployeeInfo[])];
-      let item
+      // let item
   }
 }

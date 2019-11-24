@@ -2,7 +2,7 @@ import originAxios  from 'axios'
 import { message } from 'antd';
 
 const axios = originAxios.create({
-  timeout: 2000
+  timeout: 5000
 });
 axios.interceptors.response.use(
   function(response) {
@@ -27,6 +27,20 @@ export function post(url: string, data: any) {
   return axios({
     method: 'post',
     url, 
+    data
+  })
+};
+export function deleteUrl(url: string, data?: any) {
+  return axios({
+    method: 'delete',
+    url,
+    data
+  })
+}
+export function patch(url: string, data?: any) {
+  return axios({
+    method:'patch',
+    url,
     data
   })
 }

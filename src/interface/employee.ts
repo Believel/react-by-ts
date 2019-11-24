@@ -3,12 +3,14 @@ export interface EmployeeRequest {
   departmentId: number | undefined;
 }
 export interface EmployeeInfo {
-  id: number;
+  _id: number;
   key: number;
   name: string;
-  department: string;
+  departmentName?: string;
+  departmentId: string;
   hiredate: string;
-  level: string;
+  levelName?: string;
+  levelId: string;
 }
 export type EmployeeResponse = EmployeeInfo[] | undefined;
 
@@ -17,4 +19,10 @@ export interface CreateRequest {
   departmentId: number;
   hiredate: string;
   levelId: number;
+}
+export interface UpdateRequest extends CreateRequest {
+  _id: string;
+}
+export interface DeleteRequest {
+  _id: string;
 }

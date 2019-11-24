@@ -1,5 +1,13 @@
-import { GET_EMPLOYEE, CREATE_EMPLOYEE, DELETE_EMPLOYEE, UPDATE_EMPLOYEE } from '../actions-types'
-import { EmployeeResponse, EmployeeInfo } from '../../interface/employee';
+import { 
+  GET_EMPLOYEE, 
+  CREATE_EMPLOYEE, 
+  DELETE_EMPLOYEE, 
+  UPDATE_EMPLOYEE 
+} from '../actions-types'
+import { 
+  EmployeeResponse, 
+  EmployeeInfo
+} from '../../interface/employee';
 type State = Readonly<{
   employeeList: EmployeeResponse
 }>
@@ -25,6 +33,24 @@ export default function(state = initialState, action: Action) {
       }
     case UPDATE_EMPLOYEE:
       let updatedList = [...(state.employeeList as EmployeeInfo[])];
-      // let item
+      let index = updatedList.findIndex((value) => {
+        return value._id === action.payload._id
+      })
+      updatedList.splice(index, 1, action.payload);
+      return {
+        ...state,
+        employeeList: updatedList
+      }
+    case DELETE_EMPLOYEE:
+      let reducedList = [...(state.employeeList as EmployeeInfo[])];
+      reducedList = reducedList.filter((item) => {
+        return item._id !== action.payload
+      });
+      return {
+        ...state,
+        employeeList: reducedList
+      }
+    default:
+      return state;
   }
 }

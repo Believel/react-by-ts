@@ -3,7 +3,7 @@ export interface EmployeeRequest {
   departmentId: number | undefined;
 }
 export interface EmployeeInfo {
-  _id: number;
+  _id: string;
   key: number;
   name: string;
   departmentName?: string;
@@ -16,9 +16,9 @@ export type EmployeeResponse = EmployeeInfo[] | undefined;
 
 export interface CreateRequest {
   name: string;
-  departmentId: number;
+  departmentId: string;
   hiredate: string;
-  levelId: number;
+  levelId: string;
 }
 export interface UpdateRequest extends CreateRequest {
   _id: string;

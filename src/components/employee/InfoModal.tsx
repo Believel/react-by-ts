@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
 import { Modal, Form, Input, Select, DatePicker} from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { EmployeeInfo } from '../../interface/employee';
+import { EmployeeInfo, UpdateRequest } from '../../interface/employee';
 import moment from 'moment';
+import { LevelResponse } from '../../interface/level';
+import { DepartmentResponse, DepartmentInfo } from '../../interface/department';
+import { CreateRequest } from '../../interface/employee';
 
 interface Props extends FormComponentProps {
   visible: boolean;
   edit: boolean;
   rowData: Partial<EmployeeInfo>;
   hide(): void;
+  departmentList: DepartmentResponse;
+  levelList: LevelResponse;
+  createData(param: CreateRequest, callback: () => void): void;
+  updateData(param: UpdateRequest, callback: () => void): void;
 }
 interface State {
   confirmLoading: boolean;
@@ -17,7 +24,24 @@ class InfoModal extends Component<Props, State> {
   state: State = {
     confirmLoading: false
   }
-  handleOk = () => {}
+  handleOk = () => {
+    this.props.form.validateFields((err) => {
+      if(!err) {
+        this.setState({
+          confirmLoading: true
+        })
+        let param = this.props.form.getFieldsValue();
+        param.hiredate = param.hiredate.format('YYYY-MM-DD');
+        if (!this.props.edit) {
+          this.props.createData(param as CreateRequest, this.close)
+        } else {
+          param._id = this.props.rowData._id;
+          // TODO
+          this.props.updateData(param as UpdateRequest, this.close);
+        }
+      }
+    })
+  }
   handleCancel = () => {
     this.close();
   }
@@ -30,7 +54,8 @@ class InfoModal extends Component<Props, State> {
   render() {
     let title = this.props.edit ? '编辑' : '添加新员工';
     const { getFieldDecorator } = this.props.form;
-    let { name, departmentId, hiredate, levelId} = this.props.rowData
+    let { name, departmentId, hiredate, levelId} = this.props.rowData;
+    let { departmentList, levelList} = this.props;
     return (
       <Modal
         visible={this.props.visible}
@@ -62,16 +87,18 @@ class InfoModal extends Component<Props, State> {
                 placeholder="请选择部门"
                 allowClear
               >
-                <Select.Option value={1}>技术部</Select.Option>
-                <Select.Option value={2}>产品部</Select.Option>
-                <Select.Option value={3}>运营部</Select.Option>
+                {
+                  departmentList && departmentList.map((department: DepartmentInfo, index) => (
+                    <Select.Option value={department._id} key={index}>{department.name}</Select.Option>
+                  ))
+                }
               </Select>)
             }
           </Form.Item>
           <Form.Item label="入职时间">
             {
               getFieldDecorator('hiredate', {
-                initialValue: hiredate,
+                initialValue: hiredate? moment(hiredate): undefined,
                 rules: [{ required: true, message: '请选择入职时间'}]
               })(<DatePicker
                 placeholder="请选择入职时间"
@@ -88,9 +115,11 @@ class InfoModal extends Component<Props, State> {
                 placeholder="请选择职级"
                 allowClear
               >
-                <Select.Option value={1}>1级</Select.Option>
-                <Select.Option value={2}>2级</Select.Option>
-                <Select.Option value={3}>3级</Select.Option>
+                {
+                  levelList && levelList.map((level, index) => (
+                  <Select.Option value={level._id} key={index}>{level.name}</Select.Option>
+                  ))
+                }
               </Select>)
             }
           </Form.Item>

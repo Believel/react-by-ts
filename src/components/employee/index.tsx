@@ -64,6 +64,16 @@ class Employee extends Component<Props, State>{
       rowData: {}
     })
   }
+  handleUpdate = (record: EmployeeInfo) => {
+    this.setState({
+      showModal: true,
+      edit: true,
+      rowData: record
+    })
+  }
+  handleDelete = (param: DeleteRequest) => {
+    this.props.onDeleteEmployee(param)
+  }
   render() {
     const { onGetEmployee, employeeList, onCreateEmployee, onUpdateEmployee, levelList, departmentList} = this.props;
     return (
@@ -81,9 +91,13 @@ class Employee extends Component<Props, State>{
           edit={this.state.edit}
           rowData={this.state.rowData}
           hide={this.hideModal}
+          departmentList = { departmentList}
+          levelList= {levelList}
+          createData ={onCreateEmployee}
+          updateData={onUpdateEmployee}
         />
         <Table 
-          columns={getColunms()}
+          columns={getColunms(this.handleUpdate, this.handleDelete)}
           rowKey="_id" 
           bordered 
           dataSource={employeeList} 
@@ -108,4 +122,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
   onGetLevel: getLevel,
   onGetDepartment: getDepartment
 }, dispatch)
+
 export default connect(mapStateToProps, mapDispatchToProps)(Employee);

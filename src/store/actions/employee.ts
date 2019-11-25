@@ -20,6 +20,8 @@ import {
   DeleteRequest,
   EmployeeInfo
 } from '../../interface/employee';
+import { DepartmentInfo } from '../../interface/department';
+import { LevelInfo } from '../../interface/level';
 // 获取员工列表
 export function getEmployee(param: EmployeeRequest, callback: () => void) {
   return (dispatch: Dispatch) => {
@@ -41,6 +43,7 @@ export function getEmployee(param: EmployeeRequest, callback: () => void) {
 export function createEmployee(param: CreateRequest, callback: () => void) {
   return (dispatch: Dispatch) => {
     post(CREATE_EMPLOYEE_URL, param).then(res => {
+      res.data.hiredate = moment(res.data.hiredate).format('YYYY-MM-DD')
       dispatch({
         type: CREATE_EMPLOYEE,
         payload: res.data
@@ -62,11 +65,21 @@ export function deleteEmployee(param: DeleteRequest) {
 }
 // 更新员工
 export function updateEmployee(param: UpdateRequest, callback: () => void) {
-  return (dispatch: Dispatch) => {
+  return (dispatch: Dispatch, getState: any) => {
     patch(`${UPDATE_EMPLOYEE_URL}/${param._id}`, param).then(res => {
+     let department = getState().department.departmentList.filter((item:DepartmentInfo) => {
+       return item._id === param.departmentId
+     })
+     let level = getState().level.levelList.filter((item: LevelInfo) => {
+       return item._id === param.levelId
+     })
       dispatch({
         type: UPDATE_EMPLOYEE,
-        payload: param
+        payload: {
+          ...param,
+          departmentName: department[0].name,
+          levelName: level[0].name
+        }
       });
       callback();
     })

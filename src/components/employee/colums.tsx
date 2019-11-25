@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button, Divider, Popconfirm} from 'antd';
 import { EmployeeInfo, DeleteRequest} from '../../interface/employee';
-// TODO
+
 // 接口引入
-const employeeColumns = () => {
+const employeeColumns = (
+  handleUpdate: (record: EmployeeInfo) => void,
+  handleDelete: (param: DeleteRequest) => void
+) => {
   return [
     {
       title: '姓名',
@@ -30,12 +33,13 @@ const employeeColumns = () => {
       key: 'action',
       render: (text: string, record: EmployeeInfo) => (
         <span>
-          <Button size="small" icon="edit">编辑</Button>
+          <Button size="small" icon="edit" onClick={() => handleUpdate(record)}>编辑</Button>
           <Divider type="vertical"/>
           <Popconfirm 
             title={`确定删除${record.name}吗？`}
+            onConfirm={() => handleDelete({_id: record._id})}
           >
-            <Button size="small" type="danger" icon="delete">删除</Button>
+            <Button size="small" type="danger" icon="delete" >删除</Button>
           </Popconfirm>
         </span>
       )

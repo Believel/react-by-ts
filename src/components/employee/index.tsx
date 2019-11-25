@@ -15,6 +15,7 @@ import { getLevel } from '../../store/actions/level';
 import { EmployeeResponse, EmployeeInfo, EmployeeRequest, CreateRequest, DeleteRequest, UpdateRequest} from '../../interface/employee';
 import { LevelResponse } from '../../interface/level';
 import { DepartmentResponse } from '../../interface/department';
+import { DOWNLOAD_EMPLOYEE_URL} from '../../constants/urls';
 interface State {
   showModal: boolean;
   edit: boolean;
@@ -74,6 +75,9 @@ class Employee extends Component<Props, State>{
   handleDelete = (param: DeleteRequest) => {
     this.props.onDeleteEmployee(param)
   }
+  handleDownload = () => {
+    window.location.href = DOWNLOAD_EMPLOYEE_URL;
+  }
   render() {
     const { onGetEmployee, employeeList, onCreateEmployee, onUpdateEmployee, levelList, departmentList} = this.props;
     return (
@@ -84,7 +88,7 @@ class Employee extends Component<Props, State>{
           departmentList={departmentList}/>
         <div className="toolbar">
           <Button type="primary" icon="plus" onClick={this.handleCreate}>添加新员工</Button>
-          <Button type="primary" icon="download" className="right">导出</Button>
+          <Button type="primary" icon="download" className="right" onClick={this.handleDownload}>导出</Button>
         </div>
         <InfoModal
           visible={this.state.showModal}

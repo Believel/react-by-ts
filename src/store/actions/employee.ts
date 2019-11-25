@@ -67,7 +67,7 @@ export function deleteEmployee(param: DeleteRequest) {
 export function updateEmployee(param: UpdateRequest, callback: () => void) {
   return (dispatch: Dispatch, getState: any) => {
     patch(`${UPDATE_EMPLOYEE_URL}/${param._id}`, param).then(res => {
-     let department = getState().department.departmentList.filter((item:DepartmentInfo) => {
+     let department = getState().department.departmentList.filter((item: DepartmentInfo) => {
        return item._id === param.departmentId
      })
      let level = getState().level.levelList.filter((item: LevelInfo) => {

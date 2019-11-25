@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Form, Input, Select, Button} from 'antd';
 import { FormComponentProps} from 'antd/lib/form';
 import { EmployeeRequest} from '../../interface/employee';
-import { LevelResponse } from '../../interface/level';
 import { DepartmentResponse } from '../../interface/department';
 
 const {Option} = Select;

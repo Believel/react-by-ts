@@ -80,6 +80,11 @@ class Employee extends Component<Props, State>{
   }
   render() {
     const { onGetEmployee, employeeList, onCreateEmployee, onUpdateEmployee, levelList, departmentList} = this.props;
+    const pagination = {
+      total: 10,
+      current: 1,
+      pageSize: 5
+    }
     return (
       <>
         <QueryForm 
@@ -106,6 +111,7 @@ class Employee extends Component<Props, State>{
           bordered 
           dataSource={employeeList} 
           className="table"
+          pagination= { pagination }
           loading={this.state.loading}/>
       </>
     )

@@ -16,7 +16,7 @@ type Action = {
   payload: any;
 }
 const initialState: State = {
-  employeeList: undefined
+  employeeList: undefined,
 };
 export default function(state = initialState, action: Action) {
   switch (action.type) {

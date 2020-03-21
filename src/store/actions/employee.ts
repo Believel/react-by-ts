@@ -25,7 +25,10 @@ import { LevelInfo } from '../../interface/level';
 // 获取员工列表
 export function getEmployee(param: EmployeeRequest, callback: () => void) {
   return (dispatch: Dispatch) => {
-    get(GET_EMPLOYEE_URL, param).then(res => {
+    get(GET_EMPLOYEE_URL, {
+      ...param,
+      pageSize: 5
+    }).then(res => {
       console.log(res)
       let list = res.data.list;
       list.forEach((item: EmployeeInfo) => {
